@@ -15,6 +15,17 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000), select **Run the 90-second demo**, and advance through Listen → Notice → Adapt → Connect.
 
+### Run the live Codex check-in
+
+The full-page demo at [http://localhost:3000/live](http://localhost:3000/live) sends the patient check-in and synthetic signals to your authenticated local Codex CLI. It runs `codex exec` ephemerally in a read-only sandbox and constrains the final response with a JSON Schema.
+
+```bash
+codex login
+pnpm dev
+```
+
+On Vercel, where the local CLI is not available, the same page uses a clearly labelled deterministic fallback. Urgent symptom phrases bypass the model in both modes.
+
 ## Verify
 
 ```bash
@@ -36,5 +47,7 @@ pnpm check
 3. Schema validation checks every generated output.
 4. Deterministic rules route urgent symptoms, uncertainty, and threshold breaches.
 5. Patients see one explainable next step; clinicians see a prioritised exception queue.
+
+The live prototype implements this separation directly: deterministic urgent-language routing runs before Codex, and Codex can choose only from the synthetic care plan's approved actions.
 
 See [SUBMISSION.md](./SUBMISSION.md) for ready-to-paste hackathon copy and the 90-second demo script.
