@@ -17,7 +17,7 @@ Open [http://localhost:3000](http://localhost:3000), select **Run the 90-second 
 
 ### Run the live Codex check-in
 
-The full-page demo at [http://localhost:3000/live](http://localhost:3000/live) sends the patient check-in and synthetic signals to your authenticated local Codex CLI. It runs `codex exec` ephemerally in a read-only sandbox and constrains the final response with a JSON Schema.
+The full-page demo at [http://localhost:3000/live](http://localhost:3000/live) sends the patient check-in and synthetic signals to your authenticated local Codex CLI. It runs GPT-5.5 through `codex exec` ephemerally in a read-only sandbox, disables unrelated tools/plugins, and constrains the final response with a JSON Schema plus a server-side action allowlist. The validated result can be switched between a patient-facing action and a care-team handoff.
 
 ```bash
 codex login

@@ -2892,7 +2892,32 @@ footer p:last-child {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin: 18px 0 32px;
+}
+
+.result-view-switch {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+}
+
+.result-view-switch button {
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #7f8c87;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 650;
+  padding: 10px;
+}
+
+.result-view-switch button[aria-pressed="true"] {
+  background: var(--paper);
+  color: var(--ink);
 }
 
 .engine-badge,
@@ -3026,6 +3051,118 @@ footer p:last-child {
   font-size: 9px;
   line-height: 1.5;
   margin: 14px 0 0;
+}
+
+.team-result-view {
+  display: grid;
+  gap: 12px;
+}
+
+.team-result-patient {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr auto;
+  padding-bottom: 18px;
+}
+
+.team-result-patient > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.team-result-patient small {
+  color: #718079;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.team-result-patient strong {
+  font-size: 14px;
+}
+
+.team-result-patient b {
+  border: 1px solid rgba(255, 189, 115, 0.35);
+  border-radius: 999px;
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  padding: 8px 9px;
+}
+
+.team-result-summary,
+.team-result-evidence,
+.team-result-boundary {
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 16px;
+}
+
+.team-result-summary h2 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.team-result-summary p,
+.team-result-boundary p {
+  color: #9ca8a3;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.team-result-evidence ol {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.team-result-evidence li {
+  align-items: flex-start;
+  color: #a8b2ae;
+  display: flex;
+  font-size: 10px;
+  gap: 10px;
+  line-height: 1.45;
+}
+
+.team-result-evidence i {
+  color: var(--acid);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-style: normal;
+  padding-top: 2px;
+}
+
+.team-result-boundary {
+  background: rgba(117, 230, 186, 0.045);
+  border-color: rgba(117, 230, 186, 0.22);
+}
+
+.team-result-boundary > span {
+  color: var(--mint);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.team-result-boundary p {
+  margin-top: 8px;
+}
+
+.team-result-boundary small {
+  border-top: 1px solid var(--line);
+  color: #77837e;
+  display: block;
+  font-size: 9px;
+  line-height: 1.4;
+  margin-top: 12px;
+  padding-top: 10px;
 }
 
 .engine-warning {

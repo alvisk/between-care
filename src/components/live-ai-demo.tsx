@@ -41,6 +41,7 @@ export function LiveAiDemo() {
   const [sleep, setSleep] = useState(4.8);
   const [steps, setSteps] = useState(2190);
   const [response, setResponse] = useState<ApiResponse | null>(null);
+  const [resultView, setResultView] = useState<"patient" | "team">("patient");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,6 +49,7 @@ export function LiveAiDemo() {
     event.preventDefault();
     setError("");
     setResponse(null);
+    setResultView("patient");
     setIsLoading(true);
 
     try {
@@ -103,7 +105,7 @@ export function LiveAiDemo() {
 
       <section className="live-checkin-main" aria-labelledby="live-checkin-title">
         <div className="live-page-heading">
-          <span className="eyebrow"><i /> REAL-TIME AI CHECK-IN</span>
+          <span className="eyebrow"><i /> LIVE CARE-LOOP CHECK-IN</span>
           <h1 id="live-checkin-title">Tell BETWEEN what today actually feels like.</h1>
           <p>Change the words or signals. Local development sends the check-in to your authenticated Codex CLI; the hosted site uses the same safety contract with a deterministic fallback.</p>
         </div>
@@ -125,7 +127,7 @@ export function LiveAiDemo() {
             ))}
           </div>
           <button className="live-analyse-button" disabled={isLoading || message.trim().length < 8} type="submit">
-            {isLoading ? <><span className="thinking-orbit" /> Codex is reasoning inside the care plan…</> : <>Analyse this check-in <span>→</span></>}
+            {isLoading ? <><span className="thinking-orbit" /> Checking inside the care plan…</> : <>Analyse this check-in <span>→</span></>}
           </button>
           <p className="live-form-note">Synthetic demo only · Never enter real patient data · Not medical advice</p>
         </form>
@@ -144,7 +146,7 @@ export function LiveAiDemo() {
         {isLoading ? (
           <div className="live-reasoning-state">
             <span className="thinking-orbit large-orbit" />
-            <small>LIVE REASONING</small>
+            <small>LIVE DECISION LOOP</small>
             <h2>Comparing today with Maya’s plan.</h2>
             <ol>
               <li className="is-active">Structuring patient context</li>
@@ -158,26 +160,59 @@ export function LiveAiDemo() {
 
         {response ? (
           <div className="live-result">
+            <div className="result-view-switch" aria-label="Choose result view">
+              <button aria-pressed={resultView === "patient"} onClick={() => setResultView("patient")} type="button">Patient action</button>
+              <button aria-pressed={resultView === "team"} onClick={() => setResultView("team")} type="button">Care-team handoff</button>
+            </div>
             <div className="result-topline">
               <span className={`engine-badge engine-${response.engine}`}><i /> {engineLabels[response.engine]}</span>
               <span className={`drift-badge drift-${response.result.planDrift}`}>{response.result.planDrift} drift</span>
             </div>
-            <span className="card-label">WHAT CHANGED</span>
-            <h2>{response.result.summary}</h2>
-            <ul className="live-evidence-list">
-              {response.result.evidence.map((item) => <li key={item}><i>↗</i>{item}</li>)}
-            </ul>
-            <div className="live-action-card">
-              <span>ONE APPROVED NEXT STEP</span>
-              <h3>{response.result.approvedAction.title}</h3>
-              <p>{response.result.approvedAction.rationale}</p>
-              <small>Follow up in {response.result.approvedAction.followUpMinutes} minutes</small>
-            </div>
-            <div className={response.result.escalate ? "live-handoff needs-review" : "live-handoff"}>
-              <span>{response.result.escalate ? "↗ CARE-TEAM HANDOFF" : "✓ CONTINUE MONITORING"}</span>
-              <p>{response.result.handoff}</p>
-            </div>
-            <p className="live-safety-copy">{response.result.safety}</p>
+
+            {resultView === "patient" ? (
+              <div className="patient-result-view">
+                <span className="card-label">WHAT CHANGED</span>
+                <h2>{response.result.summary}</h2>
+                <ul className="live-evidence-list">
+                  {response.result.evidence.map((item) => <li key={item}><i>↗</i>{item}</li>)}
+                </ul>
+                <div className="live-action-card">
+                  <span>ONE APPROVED NEXT STEP</span>
+                  <h3>{response.result.approvedAction.title}</h3>
+                  <p>{response.result.approvedAction.rationale}</p>
+                  <small>Follow up in {response.result.approvedAction.followUpMinutes} minutes</small>
+                </div>
+                <div className={response.result.escalate ? "live-handoff needs-review" : "live-handoff"}>
+                  <span>{response.result.escalate ? "↗ CARE-TEAM HANDOFF" : "✓ CONTINUE MONITORING"}</span>
+                  <p>{response.result.handoff}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="team-result-view">
+                <div className="team-result-patient">
+                  <span className="avatar">MP</span>
+                  <span><small>AI-GENERATED HANDOFF</small><strong>Maya Patel</strong></span>
+                  <b>{response.result.escalate ? "Review suggested" : "Monitor"}</b>
+                </div>
+                <div className="team-result-summary">
+                  <span className="card-label">SITUATION</span>
+                  <h2>{response.result.handoff}</h2>
+                  <p>{response.result.summary}</p>
+                </div>
+                <div className="team-result-evidence">
+                  <span className="card-label">EVIDENCE ATTACHED</span>
+                  <ol>
+                    {response.result.evidence.map((item, index) => <li key={item}><i>0{index + 1}</i><span>{item}</span></li>)}
+                  </ol>
+                </div>
+                <div className="team-result-boundary">
+                  <span>✓ BOUNDARY CHECK</span>
+                  <p>{response.result.safety}</p>
+                  <small>Patient action: {response.result.approvedAction.title}</small>
+                </div>
+              </div>
+            )}
+            <p className="live-safety-copy">Patient and care-team views come from the same validated result. Clinical decisions remain human.</p>
             {response.warning ? <p className="engine-warning">Local Codex was unavailable, so the safe fallback ran: {response.warning}</p> : null}
           </div>
         ) : null}

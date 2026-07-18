@@ -32,7 +32,7 @@ export default function HomePage() {
           <a href="#safety">Safety</a>
           <a href="#architecture">How it works</a>
         </nav>
-        <a className="header-cta" href="/live"><span className="live-dot" /> Real-time AI</a>
+        <a className="header-cta" href="/live"><span className="live-dot" /> Live check-in</a>
       </header>
 
       <section className="hero" id="top">
@@ -44,7 +44,7 @@ export default function HomePage() {
           <p>BETWEEN keeps a clinician-approved care plan alive in the real world: notice early drift, offer one achievable next step, and connect the care team only when a human is needed.</p>
           <div className="hero-actions">
             <a className="primary-button" href="#demo">Run the 90-second demo <span>↘</span></a>
-            <a className="quiet-link" href="/live">Try a live AI check-in <span>→</span></a>
+            <a className="quiet-link" href="/live">Try the live check-in <span>→</span></a>
           </div>
           <div className="hero-proof">
             <span><i>✓</i> Clinician-bounded actions</span>
