@@ -54,9 +54,11 @@
 
 > This is not a canned branch. I can change Maya’s words or home signals, and BETWEEN reasons over that exact input while staying inside three clinician-approved actions.
 
-**While it runs, point to the care-plan boundary. When the result appears, point to the engine badge, evidence, approved action, and handoff.**
+**While it runs, point to the care-plan boundary. When the result appears, show “Patient action,” then switch to “Care-team handoff.” Point to the engine badge, evidence, approved action, and handoff.**
 
 > In this local build, the authenticated Codex CLI produces schema-constrained output. On the hosted prototype, the same safety contract uses a deterministic fallback, so the demo remains available without pretending a model ran. Either way, urgent phrases bypass generation, and the system cannot diagnose or change a dose.
+
+> Both views come from the same validated result: one useful step for Maya, and one concise exception for her clinical team.
 
 ## Delivery beats
 
